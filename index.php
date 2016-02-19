@@ -1,4 +1,5 @@
 <?php
+// FIRST FILE BABY!!
     session_start();
     if (isset($_SESSION['id']) AND isset($_SESSION['login']) AND isset($_SESSION['accessRights'])) {
         if($_SESSION['accessRights'] == 1) {
