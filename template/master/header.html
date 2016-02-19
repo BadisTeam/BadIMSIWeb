@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta  content="text/html; charset=UTF-8"  http-equiv="content-type">
+    <meta  http-equiv="X-UA-Compatible"  content="IE=edge">
+    <meta  name="viewport"  content="width=device-width, initial-scale=1">
+    <title>BadIMSI Box - [onshow.title]</title>
+    <link  href="[onshow.template_path]css/hacker.css"  rel="stylesheet">
+    <script  src="[onshow.template_path]css/jquery.js"></script>
+    <script  src="[onshow.template_path]css/bootstrap.js"></script>
+    <style>
+    .tall-row {
+        margin-top: 40px;
+    }
+    .modal {
+        position: relative;
+        top: auto;
+        right: auto;
+        left: auto;
+        bottom: auto;
+        z-index: 1;
+        display: block;
+    }
+    .google-maps {
+        position: relative;
+        padding-bottom: 60%; // This is the aspect ratio
+        height: 0;
+        overflow: hidden;
+    }
+    .google-maps iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+    }
+    #modal {
+        display: none;
+        position: absolute;
+        top: 45%;
+        left: 40%;
+        width: 300px;
+        height: 90px;
+        padding:30px 20px 0px;
+        border: 0px solid #ababab;
+        box-shadow:1px 1px 10px #ababab;
+        border-radius:20px;
+        background-color: black;
+        z-index: 1002;
+        text-align:center;
+        overflow: auto;
+    }
+    #fade {
+        display: none;
+        position:fixed;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 1001;
+        -moz-opacity: 0.9;
+        opacity: .80;
+        filter: alpha(opacity=90);
+    }
+    </style>
+    <script type="text/javascript" src="[onshow.template_path]js/functions.js"></script>
+    <script src="[onshow.template_path]js/sockjs.min.js"></script>
+  	<script src="[onshow.template_path]js/vertxbus-3.1.0.js"></script>
+  	<script src="[onshow.template_path]js/ohsnap.min.js"></script>
+
+  </head>
+  <body onload="[onshow.jsload]">
+    <nav  class="navbar navbar-default navbar-static-top">
+      <div  class="container">
+        <div  class="navbar-header"> <button  type="button"  class="navbar-toggle collapsed"
+
+             data-toggle="collapse"  data-target="#navbar"  aria-expanded="false"
+
+             aria-controls="navbar"> <span  class="sr-only">Toggle
+              navigation</span> <span  class="icon-bar"></span> <span  class="icon-bar"></span>
+            <span  class="icon-bar"></span> </button> <a  class="navbar-brand"
+
+             href="#">BadIMSI Box</a> </div>
+        <div  id="navbar"  class="navbar-collapse collapse">
+          <ul  class="nav navbar-nav navbar-right">
+            <li> <a  href="../readme.php">How to use</a> </li>
+            <li> <a  href="../about-us.php">About us</a> </li>
+            <li  class="dropdown">
+                <a  href="#"  class="dropdown-toggle"  data-toggle="dropdown"
+                 role="button"  aria-expanded="true">[onshow.username]<span  class="caret"></span>
+                </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a  href="#">Edit profile</a></li>
+                <li><a  href="logout.php" id="logout" onclick="stopSession();">Log out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>

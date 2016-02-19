@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="bs-component">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Master</li>
+        </ul>
+    </div>
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1>Welcome, [onshow.fullName]</h1>
+    </div>
+    <div class="row tall-row">
+        <div class="col-lg-12">
+            <h1>Master main menu</h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3 class="panel-title">Create a new password for your Observers</h3>
+                </div>
+                <div class="panel-footer">
+                    <form class="bs-component" id="masterForm" method="post" action="master.php" [onshow.JSConfirm;htmlconv=no]>
+                        <div class="form-group">
+                            <label class="control-label" for="login">Login: GROUP-BADIS
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" id="currentPassword" for="login">Current password: [onshow.currentPassword; noerr]</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="login">Define a new password:</label>
+                            <input class="form-control" name="newpassword" placeHolder="Enter a password" type="text"> </div>
+                        <div class="form-group">
+                            <div>
+                                <button type="submit" name="create" id="btn_ok" class="btn btn-primary">Create</button>
+                                <a href="#" id="go" class="btn [onshow.goButtonState]">Go</a>
+                                <div id="loading"></div>
+                            </div>
+                    </form>
+                    <script>
+                    $(function() {
+                        $('#go').click(function() {
+                            var  $this = $(this);
+                            $.ajax({
+                                url: 'http://172.17.10.24:8080/master/session/state',
+                                dataType: 'json',
+                                timeout: 3000,
+                                success: function(data) {
+                                    var obj = jQuery.parseJSON(JSON.stringify(data));
+                                    console.log(obj.timestamp);
+                                    console.log(obj.password);
+                                    console.log(obj.password.length);
+                                    console.log((jQuery.now()/1000 - obj.timestamp));
+                                    if(((jQuery.now()/1000 - obj.timestamp) < 1800) && (obj.password.length != 0)) {
+                                        if(obj.state > 0) {
+                                            window.location.href="master.php?resume=true";
+                                        } else {
+                                            //alert("state over 0");
+                                            console.log(obj.state);
+                                            $.ajax({
+                                                url: 'http://172.17.10.24:8080/master/session/set/state/1',
+                                                dataType: 'json',
+                                                success: function(data) {
+                                                    window.location.href = "master.php?state=location";
+                                                }, error: function() {
+                                                    alert('Error getting state from session...');
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        alert('No session found...\nPlease set a new password to initiate a session.');
+                                    }
+                                }, error: function() {
+                                    alert('Error getting date from session...');
+                                }
+                            });
+                        });
+                    });
+                    </script>
+                    </div>
+                </div>
+            </div>
+        </div>

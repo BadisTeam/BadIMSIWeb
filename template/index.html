@@ -1,0 +1,39 @@
+        <!-- Jumbotron -->
+        <div class="jumbotron">
+
+            <h1>Enter into the BadiX</h1>
+                <form action="[onshow..script_name]?[onshow.other_prms;noerr]" method="post"  class="form-horizontal">
+                        <fieldset>
+                            <h2>Login</h2>
+                            <hr>
+                            <h3 class="text-danger">Bad login or password.[onshow;block=h3;when [var.err_log]=1]</h3>
+                            <div class="form-group">
+                                <label for="inputEmail" class="col-lg-2 control-label">Login</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" id="inputEmail" name ="login" placeholder="Login" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" id="inputPassword" name ="password" placeholder="Password" type="password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                    <div class="checkbox col-lg-10">
+                                        <label>
+                                            <p>Forgot your password ?</p>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                    <button type="reset" class="btn btn-default">Cancel</button>
+                                    <button type="submit" name="btn_ok" id="btn_ok" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+        </div>
