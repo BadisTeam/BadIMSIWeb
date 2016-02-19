@@ -59,6 +59,7 @@
 
     $template_path = 'template/';
     $title = 'Master Session';
+    $server_link = 'http://172.17.10.24:8080';
     $username = $_SESSION['login'];
     $fullName = $_SESSION['firstName']. ' ' .$_SESSION['lastName'];
 

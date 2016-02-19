@@ -45,7 +45,7 @@
                         $('#go').click(function() {
                             var  $this = $(this);
                             $.ajax({
-                                url: 'http://172.17.10.24:8080/master/session/state',
+                                url: '[onshow.server_link]/master/session/state',
                                 dataType: 'json',
                                 timeout: 3000,
                                 success: function(data) {
@@ -61,7 +61,7 @@
                                             //alert("state over 0");
                                             console.log(obj.state);
                                             $.ajax({
-                                                url: 'http://172.17.10.24:8080/master/session/set/state/1',
+                                                url: '[onshow.server_link]/master/session/set/state/1',
                                                 dataType: 'json',
                                                 success: function(data) {
                                                     window.location.href = "master.php?state=location";

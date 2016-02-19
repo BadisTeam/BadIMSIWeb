@@ -37,7 +37,7 @@
             	 alert('Sender: '+object.sender+ '\nMessage: '+object.message);
              });
         }
-      var eb = new EventBus("http://172.17.10.24:8080/eventbus");
+      var eb = new EventBus("[onshow.server_link]/eventbus");
       $("#sms_read").empty();
 	 	eb.onopen = function() {
 		  // set a handler to receive a message

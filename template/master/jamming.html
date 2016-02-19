@@ -63,7 +63,7 @@
               }
               console.log(jsonRequest);
               openModal();
-              $.post('http://172.17.10.24:8080/master/jamming/start/', jsonRequest, function(object) {
+              $.post('[onshow.server_link]/master/jamming/start/', jsonRequest, function(object) {
 
                   closeModal();
               });
@@ -72,7 +72,7 @@
       });
         var $select = $('#operator');
         $.ajax({
-          url: 'http://172.17.10.24:8080/master/jamming/operator/',
+          url: '[onshow.server_link]/master/jamming/operator/',
           dataType:'JSON',
           success:function(data){
             //clear the current content of the select
@@ -87,7 +87,7 @@
             $select.html('<option value="-1">none available</option>');
           }
         });
-        var eb = new EventBus("http://172.17.10.24:8080/eventbus");
+        var eb = new EventBus("[onshow.server_link]/eventbus");
         $("#connected tbody").empty();
 	 	eb.onopen = function() {
 		  // set a handler to receive a message
@@ -130,7 +130,7 @@
             $('#go').click(function() {
                 var  $this = $(this);
                 $.ajax({
-                    url: 'http://172.17.10.24:8080/master/session/state',
+                    url: '[onshow.server_link]/master/session/state',
                     dataType: 'json',
                     timeout: 3000,
                     success: function(data) {
@@ -141,7 +141,7 @@
                         console.log((jQuery.now()/1000 - obj.timestamp));
                         if(((jQuery.now()/1000 - obj.timestamp) < 1800) && (obj.password.length != 0)) {
                             $.ajax({
-                                url: 'http://172.17.10.24:8080/master/session/set/state/4',
+                                url: '[onshow.server_link]/master/session/set/state/4',
                                 dataType: 'json',
                                 success: function(data) {
                                     window.location.href="master.php?state=attack";

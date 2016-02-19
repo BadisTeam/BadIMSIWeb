@@ -65,7 +65,7 @@
                     'operator' : operator.options[operator.selectedIndex].value
                 }
                 openModal();
-                $.post('http://172.17.10.24:8080/master/sniffing/start/', jsonRequest, function(object) {
+                $.post('[onshow.server_link]/master/sniffing/start/', jsonRequest, function(object) {
                     $("#operators tbody").empty();
                     $.each(object, function(i, uniqueJson) {
                         $("#operators tbody").append(
@@ -118,7 +118,7 @@
                 $('#go').click(function() {
                     var $this = $(this);
                     $.ajax({
-                        url: 'http://172.17.10.24:8080/master/session/state',
+                        url: '[onshow.server_link]/master/session/state',
                         dataType: 'json',
                         timeout: 3000,
                         success: function(data) {
@@ -129,7 +129,7 @@
                             console.log((jQuery.now() / 1000 - obj.timestamp));
                             if (((jQuery.now() / 1000 - obj.timestamp) < 1800) && (obj.password.length != 0)) {
                                 $.ajax({
-                                    url: 'http://172.17.10.24:8080/master/session/set/state/3',
+                                    url: '[onshow.server_link]/master/session/set/state/3',
                                     dataType: 'json',
                                     success: function(data) {
                                         window.location.href = "master.php?state=jamming";

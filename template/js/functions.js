@@ -1,12 +1,14 @@
+var serverLink = 'http://172.17.10.24:8080';
+
 function locate() {
-  $.get('http://172.17.10.24:8080/master/map/locate', function(object){
+  $.get(serverLink+'/master/map/locate', function(object){
       alert('location: '+object.location);
   });
 }
 
 function resume(state) {
     $.ajax({
-        url: 'http://172.17.10.24:8080/master/session/set/state/'+state+'',
+        url: serverLink+'/master/session/set/state/'+state+'',
         dataType: 'json',
         timeout: 3000,
         success: function(data) {
@@ -33,7 +35,7 @@ function createPassword() {
 }
 
 function startSession() {
-  $.get('http://172.17.10.24:8080/master/session/state', function(object){
+  $.get(serverLink+'/master/session/state', function(object){
       alert('Session state: '+object.state);
       window.location.href = '/master/location.html';
   });
