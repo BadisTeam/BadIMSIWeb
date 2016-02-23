@@ -6,6 +6,12 @@
     <meta  name="viewport"  content="width=device-width, initial-scale=1">
     <title>BadIMSI Box - Attack</title>
     <link  href="[onshow.template_path]css/hacker.css"  rel="stylesheet">
+    <script  src="[onshow.template_path]css/jquery.js"></script>
+    <script  src="[onshow.template_path]css/bootstrap.js"></script>
+    <script type="text/javascript" src="[onshow.template_path]js/functions.js"></script>
+    <script src="[onshow.template_path]js/sockjs.min.js"></script>
+  	<script src="[onshow.template_path]js/vertxbus-3.1.0.js"></script>
+  	<script src="[onshow.template_path]js/ohsnap.min.js"></script>
     <style>
     .tall-row {
         margin-top: 40px;
@@ -35,6 +41,29 @@
     </style>
   </head>
   <body>
+      <div id="fade"></div>
+      <div id="modal">
+          <img id="loader" src="template/heartwave.gif" /><br />
+          Waiting for master...
+      </div>
+    <script>
+    function openModal() {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('fade').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+        document.getElementById('fade').style.display = 'none';
+    }
+    var eb = new EventBus("[onshow.server_link]/eventbus");
+      eb.onopen = function() {
+        // set a handler to receive a message
+        eb.registerHandler('session.new', function(err, res) {
+            $("#sms_read").prepend('<div  class="well"><p>'+res.body.date+'</p><p>'+res.body.message+'</p></div>');
+        });
+      };
+    </script>
     <nav  class="navbar navbar-default navbar-static-top">
       <div  class="container">
         <div  class="navbar-header"> <button  type="button"  class="navbar-toggle collapsed"

@@ -67,9 +67,9 @@
                 openModal();
                 $.post('[onshow.server_link]/master/sniffing/start/', jsonRequest, function(data) {
                     var obj = jQuery.parseJSON(JSON.stringify(data));
-                    alert(obj.started);
+                    console.log(data);
                 });
-                var intervalVar = setInterval(timer, 500);
+                var intervalVar = setInterval(timer, 1500);
                 function timer() {
                     $.getJSON('[onshow.server_link]/master/sniffing/status/', function(data) {
                         var json = JSON.stringify(data);
@@ -81,7 +81,7 @@
                             console.log(jsonObject.status);
                             finished = 1;
                         }
-                        if(jsonObject.status === "error") {
+                        else if(jsonObject.status === "error") {
                             error = jsonObject.error;
                             finished = -1;
                             console.log(error);
@@ -104,11 +104,11 @@
                                     closeModal();
                                     clearInterval(intervalVar);
                                 });
-                            } else {
-                                closeModal();
-                                alert("An error has occured, try again...\nError "+ finished +": " + error);
-                                clearInterval(intervalVar);
-                            }
+                        } else if(finished == -1) {
+                            closeModal();
+                            alert("An error has occured, try again...\nError "+ finished +": " + error);
+                            clearInterval(intervalVar);
+                        }
                     });
                 }
                 return false;
