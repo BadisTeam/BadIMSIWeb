@@ -65,21 +65,49 @@
                     'operator' : operator.options[operator.selectedIndex].value
                 }
                 openModal();
-                $.post('[onshow.server_link]/master/sniffing/start/', jsonRequest, function(object) {
-                    $("#operators tbody").empty();
-                    $.each(object, function(i, uniqueJson) {
-                        $("#operators tbody").append(
-                        "<tr class=\"info\">"
-                            +"<td>"+(i+1)+"</td>"
-                            +"<td>"+uniqueJson.Network+"</td>"
-                            +"<td>"+uniqueJson.MCC+"</td>"
-                            +"<td>"+uniqueJson.LAC+"</td>"
-                            +"<td>"+uniqueJson.CI+"</td>"
-                            +"<td>"+uniqueJson.ARFCNs+"</td>"
-                        +"</tr>")
-                    });
-                    closeModal();
+                $.post('[onshow.server_link]/master/sniffing/start/', jsonRequest, function(data) {
+                    var obj = jQuery.parseJSON(JSON.stringify(data));
+                    alert(obj.started);
                 });
+                var intervalVar = setInterval(timer, 1000);
+                var finished = 0;
+                var error;
+                if(finished == 0) {
+                    function timer() {
+                        $.getJSON('[onshow.server_link]/master/sniffing/status/', function(data) {
+                            var json = $.parsonJSON(data);
+                            if(json.status === "finished") {
+                                finished = 1;
+                                clearInterval(intervalVar);
+                            }
+                            if(json.status === "error") {
+                                finished = -1;
+                                error = json.error;
+                                clearInterval(intervalVar);
+                            }
+                        });
+                    }
+                }
+                if(finished == 1) {
+                    $.post('[onshow.server_link]/master/sniffing/getData/', jsonRequest, function(object) {
+                        $("#operators tbody").empty();
+                        $.each(object, function(i, uniqueJson) {
+                            $("#operators tbody").append(
+                                "<tr class=\"info\">"
+                                +"<td>"+(i+1)+"</td>"
+                                +"<td>"+uniqueJson.Network+"</td>"
+                                +"<td>"+uniqueJson.MCC+"</td>"
+                                +"<td>"+uniqueJson.LAC+"</td>"
+                                +"<td>"+uniqueJson.CI+"</td>"
+                                +"<td>"+uniqueJson.ARFCNs+"</td>"
+                                +"</tr>")
+                            });
+                        closeModal();
+                    });
+                } else {
+                    closeModal();
+                    alert("An error has occured, try again...\nError "+ finished +": " + error);
+                }
                 return false;
             });
         });
