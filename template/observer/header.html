@@ -95,16 +95,17 @@
             document.getElementById('modal').style.display = 'none';
             document.getElementById('fade').style.display = 'none';
         }
-        var eb = new EventBus("[onshow.server_link]/eventbus");
+        var ebsession = new EventBus("[onshow.server_link]/eventbus");
         if (endsWith(window.location.href, "observer.php")) {
             console.log(window.location.href);
             console.log(endsWith(window.location.href, "observer.php"));
             openModal();
         }
-        eb.onopen = function() {
+        ebsession.onopen = function() {
             // set a handler to receive a message
-            eb.registerHandler('session.new', function(err, res) {
+            ebsession.registerHandler('session.new', function(err, res) {
                 var json = JSON.parse(res.body);
+                console.log(json.state);
                 if (json.state == 1) {
                     closeModal();
                 } else if (json.state == 2) {
