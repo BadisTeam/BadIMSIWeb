@@ -1,135 +1,143 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta  content="text/html; charset=UTF-8"  http-equiv="content-type">
-    <meta  http-equiv="X-UA-Compatible"  content="IE=edge">
-    <meta  name="viewport"  content="width=device-width, initial-scale=1">
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BadIMSI Box - Attack</title>
-    <link  href="[onshow.template_path]css/hacker.css"  rel="stylesheet">
-    <script  src="[onshow.template_path]css/jquery.js"></script>
-    <script  src="[onshow.template_path]css/bootstrap.js"></script>
+    <link href="[onshow.template_path]css/hacker.css" rel="stylesheet">
+    <script src="[onshow.template_path]css/jquery.js"></script>
+    <script src="[onshow.template_path]css/bootstrap.js"></script>
     <script type="text/javascript" src="[onshow.template_path]js/functions.js"></script>
     <script src="[onshow.template_path]js/sockjs.min.js"></script>
-  	<script src="[onshow.template_path]js/vertxbus-3.1.0.js"></script>
-  	<script src="[onshow.template_path]js/ohsnap.min.js"></script>
+    <script src="[onshow.template_path]js/vertxbus-3.1.0.js"></script>
+    <script src="[onshow.template_path]js/ohsnap.min.js"></script>
     <script src="[onshow.template_path]map/openlayers3/build/ol.js"></script>
-    <link  href="[onshow.template_path]map/openlayers3/css/ol.css"  rel="stylesheet">
-    <link  href="[onshow.template_path]map/css/popup.css" rel="stylesheet">
+    <link href="[onshow.template_path]map/openlayers3/css/ol.css" rel="stylesheet">
+    <link href="[onshow.template_path]map/css/popup.css" rel="stylesheet">
     <style>
-    .tall-row {
-        margin-top: 40px;
-    }
-    .modal {
-        position: relative;
-        top: auto;
-        right: auto;
-        left: auto;
-        bottom: auto;
-        z-index: 1;
-        display: block;
-    }
-    .google-maps {
-        position: relative;
-        padding-bottom: 60%; // This is the aspect ratio
-        height: 0;
-        overflow: hidden;
-    }
-    .google-maps iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100% !important;
-        height: 100% !important;
-    }
-    #modal {
-        display: none;
-        position: absolute;
-        top: 45%;
-        left: 40%;
-        width: 300px;
-        height: 90px;
-        padding:30px 20px 0px;
-        border: 0px solid #ababab;
-        box-shadow:1px 1px 10px #ababab;
-        border-radius:20px;
-        background-color: black;
-        z-index: 1002;
-        text-align:center;
-        overflow: auto;
-    }
-    #fade {
-        display: none;
-        position:fixed;
-        top: 0%;
-        left: 0%;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        z-index: 1001;
-        -moz-opacity: 0.9;
-        opacity: .80;
-        filter: alpha(opacity=90);
-    }
+        .tall-row {
+            margin-top: 40px;
+        }
+
+        .modal {
+            position: relative;
+            top: auto;
+            right: auto;
+            left: auto;
+            bottom: auto;
+            z-index: 1;
+            display: block;
+        }
+
+        .google-maps {
+            position: relative;
+            padding-bottom: 60%; // This is the aspect ratio
+            height: 0;
+            overflow: hidden;
+        }
+
+        .google-maps iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        #modal {
+            display: none;
+            position: absolute;
+            top: 45%;
+            left: 40%;
+            width: 300px;
+            height: 90px;
+            padding: 30px 20px 0px;
+            border: 0px solid #ababab;
+            box-shadow: 1px 1px 10px #ababab;
+            border-radius: 20px;
+            background-color: black;
+            z-index: 1002;
+            text-align: center;
+            overflow:hidden;
+        }
+
+        #fade {
+            display: none;
+            position: fixed;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1001;
+            -moz-opacity: 0.9;
+            opacity: .80;
+            filter: alpha(opacity=90);
+        }
     </style>
-  </head>
-  <body>
-      <div id="fade"></div>
-      <div id="modal">
-          <img id="loader" src="template/heartwave.gif" /><br />
-          Waiting for master...
-      </div>
+</head>
+
+<body>
+    <div id="fade"></div>
+    <div id="modal">
+        <img id="loader" src="template/heartwave.gif" />
+        <br /> <p id="waiting_message">Waiting for master...</p>
+    </div>
     <script>
-    function openModal() {
+        function openModal() {
             document.getElementById('modal').style.display = 'block';
             document.getElementById('fade').style.display = 'block';
-    }
+        }
 
-    function closeModal() {
-        document.getElementById('modal').style.display = 'none';
-        document.getElementById('fade').style.display = 'none';
-    }
-    var eb = new EventBus("[onshow.server_link]/eventbus");
-    openModal();
-      eb.onopen = function() {
-        // set a handler to receive a message
-        eb.registerHandler('session.new', function(err, res) {
-            var json = JSON.parse(res.body);
-            if(json.state == 1) {
-
-            } else if (json.state == 2) {
-
-            } else if (json.state == 3) {
-
-            } else if (json.state == 4) {
-
-            }
-            closeModal();
-        });
-      };
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('fade').style.display = 'none';
+        }
+        var eb = new EventBus("[onshow.server_link]/eventbus");
+        if (endsWith(window.location.href, "observer.php")) {
+            console.log(window.location.href);
+            console.log(endsWith(window.location.href, "observer.php"));
+            openModal();
+        }
+        eb.onopen = function() {
+            // set a handler to receive a message
+            eb.registerHandler('session.new', function(err, res) {
+                var json = JSON.parse(res.body);
+                if (json.state == 1) {
+                    closeModal();
+                } else if (json.state == 2) {
+                    window.location.replace("observer.php?state=sniffing");
+                    closeModal();
+                } else if (json.state == 3) {
+                    window.location.replace("observer.php?state=jamming");
+                    closeModal();
+                } else if (json.state == 4) {
+                    window.location.replace("observer.php?state=attack");
+                    closeModal();
+                }
+            });
+        };
     </script>
-    <nav  class="navbar navbar-default navbar-static-top">
-      <div  class="container">
-        <div  class="navbar-header"> <button  type="button"  class="navbar-toggle collapsed"
-
-             data-toggle="collapse"  data-target="#navbar"  aria-expanded="false"
-
-             aria-controls="navbar"> <span  class="sr-only">Toggle
-              navigation</span> <span  class="icon-bar"></span> <span  class="icon-bar"></span>
-            <span  class="icon-bar"></span> </button> <a  class="navbar-brand"
-
-             href="#">BadIMSI Box</a> </div>
-        <div  id="navbar"  class="navbar-collapse collapse">
-          <ul  class="nav navbar-nav navbar-right">
-            <li> <a  href="./readme.html">How to use</a> </li>
-            <li> <a  href="./about-us.html">About us</a> </li>
-            <li  class="dropdown">
-              <a  href="#"  class="dropdown-toggle"  data-toggle="dropdown" role="button"  aria-expanded="false">GROUP-BADIS<span  class="caret"></span>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle
+              navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </button> <a class="navbar-brand" href="#">BadIMSI Box</a> </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li> <a href="./readme.php">How to use</a> </li>
+                    <li> <a href="./about-us.php">About us</a> </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">GROUP-BADIS<span  class="caret"></span>
               </a>
-              <ul  class="dropdown-menu"  role="menu">
-                <li><a  href="#">Log out</a></li>
-              </ul>
-            </li>
-          </ul>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="./logout.php">Log out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
     </nav>

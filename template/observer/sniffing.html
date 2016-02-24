@@ -1,103 +1,102 @@
-    <div  class="container">
-      <div  class="bs-component">
-        <ul  class="breadcrumb">
-          <li><a  href="#">Home</a></li>
-          <li><a  href="./location.html">Location</a></li>
-          <li  class="active"><a  href="./sniffing.html">Sniffing</a></li>
+<div class="container">
+    <div class="bs-component">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="./location.html">Location</a></li>
+            <li class="active"><a href="./sniffing.html">Sniffing</a></li>
         </ul>
-      </div>
-      <!-- Jumbotron -->
-      <div  class="jumbotron">
+    </div>
+    <!-- Jumbotron -->
+    <div class="jumbotron">
         <h1>2. Sniffing</h1>
-      </div>
-      <div  class="row tall-row">
-        <div  class="col-lg-12">
-          <h1>Around me :</h1>
-          <hr> </div>
-      </div>
-      <div  class="row">
-        <div  class="col-lg-12">
-          <div  class="panel panel-default">
-            <div  class="panel-body">
-              <h3  class="panel-title">Filter by Operator</h3>
-            </div>
-            <div  class="panel-footer">
-              <form  class="bs-component">
-                <div  class="form-group"> <label  for="operator"  class="col-lg-2 control-label">Operator</label>
-                  <div  class="col-lg-8">
-                    <select  class="form-control"  id="operator">
-                      <option  selected="selected">NO</option>
-                      <option>Orange</option>
-                      <option>SFR</option>
-                      <option>Bouygues Télécom</option>
-                      <option>Free mobile</option>
-                    </select>
-                  </div>
+    </div>
+    <div class="row tall-row">
+        <div class="col-lg-12">
+            <h1>Around me :</h1>
+            <hr> </div>
+    </div>
+    <script>
+        var jsonRequest = "";
+        eb.onopen = function() {
+            // set a handler to receive a message
+            eb.registerHandler('observer.new', function(err, res) {
+                console.log(res);
+                var json = JSON.parse(res.body);
+                if(json.hasOwnProperty("operator")) {
+                    $("select option").filter(function() {
+                        return $(this).val() == json.operator;
+                    }).prop('selected', true);
+                } else if(json.hasOwnProperty("startedSniffing")) {
+                    openModal();
+                    jsonRequest = {
+                        'operator': operator.options[operator.selectedIndex].value
+                    }
+                    $('#waiting_message').text("Started sniffing");
+                } else if(json.hasOwnProperty("status")) {
+                    if(json.status === "error") {
+                        $('#waiting_message').text("An error has occured...");
+                    }
+                    if(json.status === "inProgress") {
+                        $('#waiting_message').text("Sniffing in progress");
+                    }
+                    if(json.status === "finished") {
+                        console.log(jsonRequest);
+                        $.post('[onshow.server_link]/master/sniffing/getData/', jsonRequest, function(object) {
+                            console.log(object);
+                            $("#operators tbody").empty();
+                            $.each(object, function(i, uniqueJson) {
+                                $("#operators tbody").append(
+                                    "<tr class=\"info\">" + "<td>" + (i + 1) + "</td>" + "<td>" + uniqueJson.Network + "</td>" + "<td>" + uniqueJson.MCC + "</td>" + "<td>" + uniqueJson.LAC + "</td>" +
+                                    "<td>" + uniqueJson.CI + "</td>" + "<td>" + uniqueJson.ARFCNs + "</td>" + "</tr>")
+                            });
+                            closeModal();
+                        });
+                    }
+                }
+            });
+        };
+    </script>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3 class="panel-title">Filter by Operator</h3>
                 </div>
-                <div  class="form-group">
-                  <div> <a  href="#"  class="btn btn-primary">Scan</a> </div>
+                <div class="panel-footer">
+                    <form class="bs-component">
+                        <div class="form-group">
+                            <label for="operator" class="col-lg-2 control-label">Operator</label>
+                            <div class="col-lg-8">
+                                <select disabled class="form-control" id="operator">
+                                    <option selected="selected">NO</option>
+                                    <option value = "orange">Orange</option>
+                                    <option value = "sfr">SFR</option>
+                                    <option value = "bouygues_telecom">Bouygues Telecom</option>
+                                    <option value = "free">Free mobile</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
-      <!-- Result BTS -->
-      <div  class="row">
-        <div  class="col-lg-12">
-          <table  class="table table-striped table-hover ">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Network</th>
-                <th>LAC</th>
-                <th>CI</th>
-                <th>ARFCN</th>
-                <th>DBm</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr  class="info">
-                <td>1</td>
-                <td>Orange</td>
-                <td>453</td>
-                <td>32</td>
-                <td>132</td>
-                <td>-18</td>
-              </tr>
-              <tr  class="info">
-                <td>2</td>
-                <td>Orange</td>
-                <td>733</td>
-                <td>2314</td>
-                <td>6</td>
-                <td>-27</td>
-              </tr>
-              <tr  class="info">
-                <td>3</td>
-                <td>Orange</td>
-                <td>566</td>
-                <td>32</td>
-                <td>155</td>
-                <td>-56</td>
-              </tr>
-              <tr  class="info">
-                <td>4</td>
-                <td>Orange</td>
-                <td>24</td>
-                <td>88</td>
-                <td>7</td>
-                <td>-78</td>
-              </tr>
-              <tr  class="info">
-                <td>5</td>
-                <td>Orange</td>
-                <td>433</td>
-                <td>87</td>
-                <td>32</td>
-                <td>-89</td>
-              </tr>
-            </tbody>
-          </table>
+    </div>
+    <!-- Result BTS -->
+    <div class="row">
+        <div class="col-lg-12">
+            <table id="operators" class="table table-striped table-hover ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Network</th>
+                        <th>LAC</th>
+                        <th>CI</th>
+                        <th>ARFCN</th>
+                        <th>DBm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
-      </div>
+    </div>

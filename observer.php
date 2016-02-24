@@ -18,7 +18,7 @@
         $TBS->LoadTemplate('template/observer/sniffing.html', '+');
         $title = 'Observer Session - Sniffing';
     } elseif($state == "jamming") {
-        $TBS->LoadTemplate('template/observerobserver/jamming.html', '+');
+        $TBS->LoadTemplate('template/observer/jamming.html', '+');
         $title = 'Observer Session - Jamming';
     } elseif($state == "attack") {
         $TBS->LoadTemplate('template/observer/attack.html', '+');
