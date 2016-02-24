@@ -36,30 +36,25 @@
     }
     if($state == "location") {
         $TBS->LoadTemplate('template/master/location.html', '+');
-        isset($_GET['resume']) ? $jsload = 'resume(1)' : $jsload = 'locate()';
         $title = 'Master Session - Location';
     } elseif($state == "sniffing") {
         $TBS->LoadTemplate('template/master/sniffing.html', '+');
-        $jsload = '';
         $title = 'Master Session - Sniffing';
     } elseif($state == "jamming") {
         $TBS->LoadTemplate('template/master/jamming.html', '+');
-        $jsload = '';
         $title = 'Master Session - Jamming';
     } elseif($state == "attack") {
         $TBS->LoadTemplate('template/master/attack.html', '+');
-        $jsload = '';
         $title = 'Master Session - Attack';
     } else {
         $TBS->LoadTemplate('template/master/index.html', '+');
         $title = 'Master Session';
-        $jsload = '';
     }
     $TBS->LoadTemplate('template/master/footer.html', '+');
 
     $template_path = 'template/';
     $title = 'Master Session';
-    $server_link = 'http://172.17.10.24:8080';
+    $server_link = 'http://localhost:8080';
     $username = $_SESSION['login'];
     $fullName = $_SESSION['firstName']. ' ' .$_SESSION['lastName'];
 

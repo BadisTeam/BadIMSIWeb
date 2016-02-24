@@ -29,4 +29,5 @@
     }
     $TBS->LoadTemplate('template/observer/footer.html', '+');
     $template_path = 'template/';
+    $server_link = 'http://localhost:8080';
     $TBS->Show();

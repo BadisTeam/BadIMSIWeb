@@ -30,6 +30,7 @@
     if (isset($_POST['btn_ok'])) {
         // Imagine we check the login/password...
         $login = $_POST['login'];
+        echo $login;
         $password = $_POST['password'];
         if(($errorMessage === '') && (trim($login) == '')) $errorMessage = 'Please enter your login.';
         if(($errorMessage === '') && ($password == '')) $errorMessage = 'Please enter your password.';

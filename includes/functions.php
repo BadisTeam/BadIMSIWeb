@@ -14,7 +14,7 @@
         // Handle error - notify administrator, log to a file, show an error screen, etc.
     }
 
-    $REST_HOST = '172.17.10.24';
+    $REST_HOST = 'localhost';
     $REST_PORT = 8080;
 
  ?>

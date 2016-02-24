@@ -1,38 +1,4 @@
-var serverLink = 'http://172.17.10.24:8080';
-
-function locate() {
-  $.get(serverLink+'/master/map/locate', function(object){
-      alert('location: '+object.location);
-  });
-}
-
-function resume(state) {
-    $.ajax({
-        url: serverLink+'/master/session/set/state/'+state+'',
-        dataType: 'json',
-        timeout: 3000,
-        success: function(data) {
-            var obj = jQuery.parseJSON(JSON.stringify(data));
-            console.log(obj.stateChanged)
-            if(!obj.stateChanged) {
-                alert('Session state resumed.');
-                window.location.href = "master.php?resume=true";
-            }
-        }, error: function() {
-            alert('Error getting state from session...');
-        }
-    });
-}
-
-function stopSession() {
-  $.get('/master/session/stop', function(object){
-      alert(object.state);
-  });
-}
-function createPassword() {
-  console.log("inside create");
-  alert("inside create");
-}
+var serverLink = 'http://localhost:8080';
 
 function startSession() {
   $.get(serverLink+'/master/session/state', function(object){
