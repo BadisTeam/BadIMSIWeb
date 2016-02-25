@@ -29,10 +29,10 @@
                             <div class="col-lg-8">
                                 <select class="form-control" id="operator">
                                     <option selected="selected">NO</option>
-                                    <option value = "orange">Orange</option>
-                                    <option value = "sfr">SFR</option>
-                                    <option value = "bouygues_telecom">Bouygues Telecom</option>
-                                    <option value = "free">Free mobile</option>
+                                    <option value="orange">Orange</option>
+                                    <option value="sfr">SFR</option>
+                                    <option value="bouygues_telecom">Bouygues Telecom</option>
+                                    <option value="free">Free mobile</option>
                                 </select>
                             </div>
                         </div>
@@ -79,45 +79,19 @@
                 }
                 openModal();
                 $.post('[onshow.server_link]/master/sniffing/start/', jsonRequest, function(data) {
-                    var obj = jQuery.parseJSON(JSON.stringify(data));
                     console.log(data);
-                });
-                var intervalVar = setInterval(timer, 1500);
-
-                function timer() {
-                    $.getJSON('[onshow.server_link]/master/sniffing/status/', function(data) {
-                        var json = JSON.stringify(data);
-                        var error;
-                        var finished = 0;
-                        console.log(json);
-                        var jsonObject = JSON.parse(json)
-                        if (jsonObject.status === "finished") {
-                            console.log(jsonObject.status);
-                            finished = 1;
-                        } else if (jsonObject.status === "error") {
-                            error = jsonObject.error;
-                            finished = -1;
-                            console.log(error);
-                        }
-                        console.log(finished);
-                        if (finished == 1) {
-                            $.post('[onshow.server_link]/master/sniffing/getData/', jsonRequest, function(object) {
-                                $("#operators tbody").empty();
-                                $.each(object, function(i, uniqueJson) {
-                                    $("#operators tbody").append(
-                                        "<tr class=\"info\">" + "<td>" + (i + 1) + "</td>" + "<td>" + uniqueJson.Network + "</td>" + "<td>" + uniqueJson.MCC + "</td>" + "<td>" + uniqueJson.LAC + "</td>" +
-                                        "<td>" + uniqueJson.CI + "</td>" + "<td>" + uniqueJson.ARFCNs + "</td>" + "</tr>")
-                                });
-                                closeModal();
-                                clearInterval(intervalVar);
-                            });
-                        } else if (finished == -1) {
-                            closeModal();
-                            alert("An error has occured, try again...\nError " + finished + ": " + error);
-                            clearInterval(intervalVar);
-                        }
+                    $("#operators tbody").empty();
+                    if (data.status === "error") {
+                        closeModal();
+                        alert("An error has occured");
+                    }
+                    $.each(object, function(i, uniqueJson) {
+                        $("#operators tbody").append(
+                            "<tr class=\"info\">" + "<td>" + (i + 1) + "</td>" + "<td>" + uniqueJson.Network + "</td>" + "<td>" + uniqueJson.MCC + "</td>" + "<td>" + uniqueJson.LAC + "</td>" +
+                            "<td>" + uniqueJson.CI + "</td>" + "<td>" + uniqueJson.ARFCNs + "</td>" + "</tr>")
                     });
-                }
+                    closeModal();
+                });
                 return false;
             });
         });
