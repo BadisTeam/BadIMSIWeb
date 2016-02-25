@@ -103,8 +103,11 @@
         eb.onopen = function() {
             // set a handler to receive a message
             eb.registerHandler('imsi.new', function(err, res) {
+                var json = jQuery.parseJSON(res);
+                $.each(json, function(key, val) {
                 $("#connected tbody").append(
-                    "<tr class=\"info\">" + "<td id=\"imsi\">" + res.body.IMSI + "</td>" + "<td id=\"tmsi\">" + res.body.TMSI + "</td>" + "<td id=\"imei\">" + res.body.TMSI + "</td>" + "</tr>");
+                    "<tr class=\"info\">" + "<td id=\"imsi\">" + val.IMSI + "</td>" + "<td id=\"tmsi\">" + val.TMSI + "</td>" + "<td id=\"imei\">" + val.TMSI + "</td>" + "</tr>");
+                });
             });
         };
     </script>

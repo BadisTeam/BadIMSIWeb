@@ -69,11 +69,17 @@
                         return $(this).text() == json.operator;
                     }).prop('selected', true);
                 }
-                if(json.hasOwnProperty("")) {
-
-                }
             });
         }
+        var ebIMSI = new EventBus("[onshow.server_link]/eventbus");
+        $("#connected tbody").empty();
+        ebIMSI.onopen = function() {
+            // set a handler to receive a message
+            ebIMSI.registerHandler('imsi.new', function(err, res) {
+                $("#connected tbody").append(
+                    "<tr class=\"info\">" + "<td id=\"imsi\">" + res.body.IMSI + "</td>" + "<td id=\"tmsi\">" + res.body.TMSI + "</td>" + "<td id=\"imei\">" + res.body.TMSI + "</td>" + "</tr>");
+            });
+        };
     </script>
     <div class="row">
         <div class="col-lg-12">
