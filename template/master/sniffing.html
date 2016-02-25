@@ -34,6 +34,19 @@
                                     <option value="bouygues_telecom">Bouygues Telecom</option>
                                     <option value="free">Free mobile</option>
                                 </select>
+                                <select class="form-control" id="bands">
+                                    <option selected="selected" value="">All</option>
+                                    <option value="GSM-450">GSM-450</option>
+                                    <option value="GSM-480">GSM-480</option>
+                                    <option value="GSM-750">GSM-750</option>
+                                    <option value="GSM-850">GSM-850</option>
+                                    <option value="GSM-900">GSM-900</option>
+                                    <option value="GSM-1800">GSM-1800</option>
+                                    <option value="GSM-1900">GSM-1900</option>
+                                    <option value="EGSM-900">EGSM-900</option>
+                                    <option value="RGSM-900">RGSM-900</option>
+                                    <option value="TGSM-810">TGSM-810</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -58,7 +71,7 @@
             document.getElementById('modal').style.display = 'none';
             document.getElementById('fade').style.display = 'none';
         }
-        $("select").change(function() {
+        $("#operator").change(function() {
             var jsonRequest = "";
             $("select option:selected").each(function() {
                 jsonRequest = {
@@ -66,6 +79,18 @@
                 }
             });
             $.post('[onshow.server_link]/master/sniffing/selectOperator/', jsonRequest, function(data) {
+                var obj = jQuery.parseJSON(JSON.stringify(data));
+                console.log(data);
+            });
+        }).trigger("change");
+        $("#bands").change(function() {
+            var jsonRequest = "";
+            $("select option:selected").each(function() {
+                jsonRequest = {
+                    'band': bands.options[bands.selectedIndex].value
+                }
+            });
+            $.post('[onshow.server_link]/master/sniffing/selectBand/', jsonRequest, function(data) {
                 var obj = jQuery.parseJSON(JSON.stringify(data));
                 console.log(data);
             });

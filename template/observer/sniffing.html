@@ -25,8 +25,13 @@
                 var json = JSON.parse(res.body);
                 if (json.hasOwnProperty("operator")) {
                     closeModal();
-                    $("select option").filter(function() {
+                    $("#operator option").filter(function() {
                         return $(this).val() == json.operator;
+                    }).prop('selected', true);
+                } else if (json.hasOwnProperty("band")) {
+                    closeModal();
+                    $("#bands option").filter(function() {
+                        return $(this).val() == json.band;
                     }).prop('selected', true);
                 } else if (json.hasOwnProperty("started")) {
                     openModal();
@@ -69,6 +74,19 @@
                                     <option value="sfr">SFR</option>
                                     <option value="bouygues_telecom">Bouygues Telecom</option>
                                     <option value="free">Free mobile</option>
+                                </select>
+                                <select disabled class="form-control" id="bands">
+                                    <option selected="selected" value="">All</option>
+                                    <option value="GSM-450">GSM-450</option>
+                                    <option value="GSM-480">GSM-480</option>
+                                    <option value="GSM-750">GSM-750</option>
+                                    <option value="GSM-850">GSM-850</option>
+                                    <option value="GSM-900">GSM-900</option>
+                                    <option value="GSM-1800">GSM-1800</option>
+                                    <option value="GSM-1900">GSM-1900</option>
+                                    <option value="EGSM-900">EGSM-900</option>
+                                    <option value="RGSM-900">RGSM-900</option>
+                                    <option value="TGSM-810">TGSM-810</option>
                                 </select>
                             </div>
                         </div>
