@@ -83,13 +83,14 @@
                     $("#operators tbody").empty();
                     if (data.status === "error") {
                         closeModal();
-                        alert("An error has occured");
-                    }
-                    $.each(object, function(i, uniqueJson) {
+                        alert("An error has occured\n" + data.content);
+                    } else {
+                        $.each(data.content, function(i, uniqueJson) {
                         $("#operators tbody").append(
                             "<tr class=\"info\">" + "<td>" + (i + 1) + "</td>" + "<td>" + uniqueJson.Network + "</td>" + "<td>" + uniqueJson.MCC + "</td>" + "<td>" + uniqueJson.LAC + "</td>" +
                             "<td>" + uniqueJson.CI + "</td>" + "<td>" + uniqueJson.ARFCNs + "</td>" + "</tr>")
-                    });
+                        });
+                    }
                     closeModal();
                 });
                 return false;

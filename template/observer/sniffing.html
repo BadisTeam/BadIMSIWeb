@@ -27,7 +27,7 @@
                     $("select option").filter(function() {
                         return $(this).val() == json.operator;
                     }).prop('selected', true);
-                } else if(json.hasOwnProperty("startedSniffing")) {
+                } else if(json.hasOwnProperty("started")) {
                     openModal();
                     jsonRequest = {
                         'operator': operator.options[operator.selectedIndex].value
@@ -37,10 +37,7 @@
                     if(json.status === "error") {
                         $('#waiting_message').text("An error has occured...");
                     }
-                    if(json.status === "inProgress") {
-                        $('#waiting_message').text("Sniffing in progress");
-                    }
-                    if(json.status === "finished") {
+                    if(json.status === "data") {
                         console.log(jsonRequest);
                         $.post('[onshow.server_link]/master/sniffing/getData/', jsonRequest, function(object) {
                             console.log(object);
