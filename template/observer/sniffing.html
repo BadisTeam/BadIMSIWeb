@@ -23,32 +23,30 @@
             eb.registerHandler('observer.new', function(err, res) {
                 console.log(res);
                 var json = JSON.parse(res.body);
-                if(json.hasOwnProperty("operator")) {
+                if (json.hasOwnProperty("operator")) {
+                    closeModal();
                     $("select option").filter(function() {
                         return $(this).val() == json.operator;
                     }).prop('selected', true);
-                } else if(json.hasOwnProperty("started")) {
+                } else if (json.hasOwnProperty("started")) {
                     openModal();
                     jsonRequest = {
                         'operator': operator.options[operator.selectedIndex].value
                     }
                     $('#waiting_message').text("Started sniffing");
-                } else if(json.hasOwnProperty("status")) {
-                    if(json.status === "error") {
+                } else if (json.hasOwnProperty("status")) {
+                    if (json.status === "error") {
                         $('#waiting_message').text("An error has occured...");
                     }
-                    if(json.status === "data") {
-                        console.log(jsonRequest);
-                        $.post('[onshow.server_link]/master/sniffing/getData/', jsonRequest, function(object) {
-                            console.log(object);
-                            $("#operators tbody").empty();
-                            $.each(object, function(i, uniqueJson) {
-                                $("#operators tbody").append(
-                                    "<tr class=\"info\">" + "<td>" + (i + 1) + "</td>" + "<td>" + uniqueJson.Network + "</td>" + "<td>" + uniqueJson.MCC + "</td>" + "<td>" + uniqueJson.LAC + "</td>" +
-                                    "<td>" + uniqueJson.CI + "</td>" + "<td>" + uniqueJson.ARFCNs + "</td>" + "</tr>")
-                            });
-                            closeModal();
+                    if (json.status === "data") {
+                        console.log(json);
+                        $("#operators tbody").empty();
+                        $.each(json.content, function(i, uniqueJson) {
+                            $("#operators tbody").append(
+                                "<tr class=\"info\">" + "<td>" + (i + 1) + "</td>" + "<td>" + uniqueJson.Network + "</td>" + "<td>" + uniqueJson.MCC + "</td>" + "<td>" + uniqueJson.LAC + "</td>" +
+                                "<td>" + uniqueJson.CI + "</td>" + "<td>" + uniqueJson.ARFCNs + "</td>" + "</tr>")
                         });
+                        closeModal();
                     }
                 }
             });
@@ -67,10 +65,10 @@
                             <div class="col-lg-8">
                                 <select disabled class="form-control" id="operator">
                                     <option selected="selected">NO</option>
-                                    <option value = "orange">Orange</option>
-                                    <option value = "sfr">SFR</option>
-                                    <option value = "bouygues_telecom">Bouygues Telecom</option>
-                                    <option value = "free">Free mobile</option>
+                                    <option value="orange">Orange</option>
+                                    <option value="sfr">SFR</option>
+                                    <option value="bouygues_telecom">Bouygues Telecom</option>
+                                    <option value="free">Free mobile</option>
                                 </select>
                             </div>
                         </div>
