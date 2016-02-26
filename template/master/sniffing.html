@@ -100,8 +100,10 @@
             $('#scan').click(function() {
                 var operator = document.getElementById('operator');
                 var jsonRequest = {
-                    'operator': operator.options[operator.selectedIndex].value
+                    'operator': operator.options[operator.selectedIndex].value,
+                    'band': bands.options[bands.selectedIndex].value
                 }
+                console.log(jsonRequest);
                 openModal();
                 $.post('[onshow.server_link]/master/sniffing/start/', jsonRequest, function(data) {
                     console.log(data);
