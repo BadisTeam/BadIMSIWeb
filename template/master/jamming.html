@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group">
                             <div> <a href="#" id="clone" class="btn btn-primary">Clone</a>
-                                <a href="#" id="jam" onclick="stopJammingAndFakeBTS(); return false;" class="btn btn-danger">Stop</a> </div>
+                                <a href="#" id="jam" class="btn btn-danger">Stop</a> </div>
                         </div>
                     </form>
                 </div>
@@ -78,7 +78,7 @@
                 //iterate over the data and append a select option
                 $.each(data, function(key, val) {
                     console.log(JSON.stringify(data[key]));
-                    $select.append('<option value=\'' + JSON.stringify(data[key]) + '\'>' + (key + 1) + ' ' + val.Network + ' (' + val.CI + ')</option>');
+                    $select.append('<option value=\'' + val.CI + '\'>' + (key + 1) + ' ' + val.Network + ' (' + val.CI + ')</option>');
                 });
             },
             error: function() {
