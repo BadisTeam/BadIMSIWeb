@@ -56,9 +56,9 @@
         }
         $(function() {
             $('#clone').click(function() {
-                var operator = $('#operator :selected').val();
-                console.log(operator);
-                var jsonRequest = JSON.parse(operator);
+                var jsonRequest = {
+                    'CI': operator.options[operator.selectedIndex].value
+                }
                 console.log(jsonRequest);
                 openModal();
                 $.post('[onshow.server_link]/master/fakebts/start/', jsonRequest, function(object) {
