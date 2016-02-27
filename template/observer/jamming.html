@@ -76,6 +76,7 @@
         ebIMSI.onopen = function() {
             // set a handler to receive a message
             ebIMSI.registerHandler('imsi.new', function(err, res) {
+                console.log(res);
                 $("#connected tbody").append(
                     "<tr class=\"info\">" + "<td id=\"imsi\">" + res.body.IMSI + "</td>" + "<td id=\"tmsi\">" + res.body.TMSI + "</td>" + "<td id=\"imei\">" + res.body.TMSI + "</td>" + "</tr>");
             });
