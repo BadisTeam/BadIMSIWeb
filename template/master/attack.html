@@ -91,10 +91,9 @@
                         'imsi': imsi
                     }
                     $.post('[onshow.server_link]/master/attack/sms/send/', jsonRequest, function(object) {
-                        alert('Sender: ' + object.sender + '\nMessage: ' + object.message);
                     });
+                    return false;
                 });
-                return false;
             });
 
             var eb = new EventBus("[onshow.server_link]/eventbus");
