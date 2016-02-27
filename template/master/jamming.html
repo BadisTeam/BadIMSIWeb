@@ -107,7 +107,7 @@
                 var json = jQuery.parseJSON(res);
                 $.each(json, function(key, val) {
                 $("#connected tbody").append(
-                    "<tr class=\"info\">" + "<td id=\"imsi\">" + val.IMSI + "</td>" + "<td id=\"tmsi\">" + val.TMSI + "</td>" + "<td id=\"imei\">" + val.TMSI + "</td>" + "</tr>");
+                    "<tr class=\"info\">" + "<td id=\"imsi\">" + val.body.IMSI + "</td>" + "<td id=\"tmsi\">" + val.body.TMSI + "</td>" + "<td id=\"imei\">" + val.body.TMSI + "</td>" + "</tr>");
                 });
             });
         };
