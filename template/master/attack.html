@@ -24,6 +24,24 @@
         </div>
       </div>
       <script>
+      var $select = $('#imsi');
+      $.ajax({
+          url: '[onshow.server_link]/master/attack/tmsis/',
+          dataType: 'JSON',
+          success: function(data) {
+              //clear the current content of the select
+              $select.html('');
+              //iterate over the data and append a select option
+              $.each(data, function(key, val) {
+                  console.log(JSON.stringify(data[key]));
+                  $select.append('<option value=\'' + val.IMSI + '\'> ' + val.IMSI + '</option>');
+              });
+          },
+          error: function() {
+              //if there is an error append a 'none available' option
+              $select.html('<option value="-1">none available</option>');
+          }
+      });
       function sendSMSToCore() {
         	 var sender = document.getElementById('sender').value;
         	 var message = document.getElementById('message').value;
@@ -58,7 +76,6 @@
                     <div  class="form-group"> <label  for="imsi"  class="col-lg-2 control-label">IMSI</label>
                       <div  class="col-lg-10">
                       	<select  class="form-control"  id="imsi">
-                        		<option  selected="selected" value="82008517555454">82008517555454</option>
                       	</select>
                       </div>
                     </div>
