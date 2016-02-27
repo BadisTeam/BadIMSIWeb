@@ -103,6 +103,7 @@
         eb.onopen = function() {
             // set a handler to receive a message
             eb.registerHandler('imsi.new', function(err, res) {
+                console.log(res);
                 var json = jQuery.parseJSON(res);
                 $.each(json, function(key, val) {
                 $("#connected tbody").append(
