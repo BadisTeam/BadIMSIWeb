@@ -104,6 +104,17 @@
                     $("#sms_read").prepend('<div  class="well"><p>' + res.body.date + '</p><p>' + res.body.message + '</p></div>');
                 });
             };
+
+            var ebReception = new EventBus(serverLink + '/eventbus');
+            $("#sms_sent").empty();
+            ebReception.onopen = function() {
+                // set a handler to receive a message
+                ebReception.registerHandler('sms.sent', function(err, res) {
+                    console.log("Date: " + res.body.date);
+                    console.log("Msg: " + res.body.message);
+                    $("#sms_sent").prepend('<div  class="well"><p>' + res.body.date + '</p><p>' + res.body.message + '</p></div>');
+                });
+            };
         </script>
         <div class="col-md-4">
             <div class="panel panel-default">
