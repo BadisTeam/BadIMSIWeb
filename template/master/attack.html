@@ -102,6 +102,26 @@
                     }
                 });
             });
+            
+            $(function() {
+                $('#send').click(function() {
+                    var sender = document.getElementById('sender').value;
+                    console.log(sender);
+                    var message = document.getElementById('message').value;
+                    console.log(message);
+                    var imsi = document.getElementById('imsi').value;
+                    console.log(imsi);
+                    var jsonRequest = {
+                        'sender': sender,
+                        'message': message,
+                        'imsi': imsi
+                    }
+                    $.post('[onshow.server_link]/master/attack/sms/send/', jsonRequest, function(object) {
+                        alert('Sender: ' + object.sender + '\nMessage: ' + object.message);
+                    });
+                });
+                return false;
+            });
 
             var eb = new EventBus(serverLink + '/eventbus');
             $("#sms_read").empty();
