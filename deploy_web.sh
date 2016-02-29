@@ -1,8 +1,9 @@
 #!/bin/bash
-
+if [ "$(id -u)" != "0" ]; then
+	echo "Sorry, you are not root."
+	exit 1
+fi
 wwwfolder=/var/www/badimsiweb
-echo this script require root privilege
-echo commands are execuded with sudo
 sudo mkdir -p $wwwfolder/*
 sudo cp -R ./* $wwwfolder/
 sudo rm $wwwfolder/deploy_web.sh
