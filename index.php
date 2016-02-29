@@ -32,8 +32,8 @@
         $login = $_POST['login'];
         echo $login;
         $password = $_POST['password'];
-        if(($errorMessage === '') && (trim($login) == '')) $errorMessage = 'Please enter your login.';
-        if(($errorMessage === '') && ($password == '')) $errorMessage = 'Please enter your password.';
+        if(($errorMessage === '') && (trim($login) === '')) { $errorMessage = 'Please enter your login.'; }
+        if(($errorMessage === '') && ($password === '')) { $errorMessage = 'Please enter your password.'; }
         if($login == "Observer") {
             $sessionPassword = json_decode(@file_get_contents('http://'.$REST_HOST.':'.$REST_PORT.'/master/session/state'), true)['password'];
             if($sessionPassword == $password) {
@@ -65,4 +65,4 @@
     }
 
     $TBS->Show();
-?>
+    
