@@ -17,7 +17,7 @@
     </div>
     <script>
         var jsonRequest = "";
-        var eb = new EventBus("[onshow.server_link]/eventbus");
+        var eb = new EventBus(serverLink + '/eventbus');
         eb.onopen = function() {
             // set a handler to receive a message
             eb.registerHandler('observer.new', function(err, res) {

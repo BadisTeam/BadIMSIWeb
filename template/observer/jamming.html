@@ -43,7 +43,7 @@
     <script>
         var $select = $('#operator');
         $.ajax({
-            url: '[onshow.server_link]/master/fakebts/getBTSList/',
+            url: serverLink + '/master/fakebts/getBTSList/',
             dataType: 'JSON',
             success: function(data) {
                 //clear the current content of the select
@@ -59,7 +59,7 @@
                 $select.html('<option value="-1">none available</option>');
             }
         });
-        var eb = new EventBus("[onshow.server_link]/eventbus");
+        var eb = new EventBus(serverLink + '/eventbus');
         eb.onopen = function() {
             eb.registerHandler('observer.new', function(err, res) {
                 var json = JSON.parse(res.body);
@@ -71,7 +71,7 @@
                 }
             });
         }
-        var ebIMSI = new EventBus("[onshow.server_link]/eventbus");
+        var ebIMSI = new EventBus(serverLink + '/eventbus');
         $("#connected tbody").empty();
         ebIMSI.onopen = function() {
             // set a handler to receive a message

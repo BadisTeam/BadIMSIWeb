@@ -61,7 +61,7 @@
                 }
                 console.log(jsonRequest);
                 openModal();
-                $.post('[onshow.server_link]/master/fakebts/start/', jsonRequest, function(object) {
+                $.post(serverLink + '/master/fakebts/start/', jsonRequest, function(object) {
 
                     closeModal();
                 });
@@ -70,7 +70,7 @@
         });
         var $select = $('#operator');
         $.ajax({
-            url: '[onshow.server_link]/master/fakebts/getBTSList/',
+            url: serverLink + '/master/fakebts/getBTSList/',
             dataType: 'JSON',
             success: function(data) {
                 //clear the current content of the select
@@ -93,12 +93,12 @@
                     'operator': operator.options[operator.selectedIndex].text
                 }
             });
-            $.post('[onshow.server_link]/master/fakebts/selectOperator/', jsonRequest, function(data) {
+            $.post(serverLink + '/master/fakebts/selectOperator/', jsonRequest, function(data) {
                 var obj = jQuery.parseJSON(JSON.stringify(data));
                 console.log(data);
             });
         }).trigger("change");
-        var eb = new EventBus("[onshow.server_link]/eventbus");
+        var eb = new EventBus(serverLink + '/eventbus');
         eb.onopen = function() {
             // set a handler to receive a message
             eb.registerHandler('imsi.new', function(err, res) {
@@ -142,7 +142,7 @@
                 $('#go').click(function() {
                     var $this = $(this);
                     $.ajax({
-                        url: '[onshow.server_link]/master/session/state',
+                        url: serverLink + '/master/session/state',
                         dataType: 'json',
                         timeout: 3000,
                         success: function(data) {
@@ -153,7 +153,7 @@
                             console.log((jQuery.now() / 1000 - obj.timestamp));
                             if (((jQuery.now() / 1000 - obj.timestamp) < 1800) && (obj.password.length != 0)) {
                                 $.ajax({
-                                    url: '[onshow.server_link]/master/session/set/state/4',
+                                    url: serverLink + '/master/session/set/state/4',
                                     dataType: 'json',
                                     success: function(data) {
                                         window.location.href = "master.php?state=attack";

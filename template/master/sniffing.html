@@ -77,7 +77,7 @@
                     'operator': operator.options[operator.selectedIndex].value
                 }
             });
-            $.post('[onshow.server_link]/master/sniffing/selectOperator/', jsonRequest, function(data) {
+            $.post(serverLink + '/master/sniffing/selectOperator/', jsonRequest, function(data) {
                 var obj = jQuery.parseJSON(JSON.stringify(data));
                 console.log(data);
             });
@@ -89,7 +89,7 @@
                     'band': bands.options[bands.selectedIndex].value
                 }
             });
-            $.post('[onshow.server_link]/master/sniffing/selectBand/', jsonRequest, function(data) {
+            $.post(serverLink + '/master/sniffing/selectBand/', jsonRequest, function(data) {
                 var obj = jQuery.parseJSON(JSON.stringify(data));
                 console.log(data);
             });
@@ -104,7 +104,7 @@
                 }
                 console.log(jsonRequest);
                 openModal();
-                $.post('[onshow.server_link]/master/sniffing/start/', jsonRequest, function(data) {
+                $.post(serverLink + '/master/sniffing/start/', jsonRequest, function(data) {
                     console.log(data);
                     $("#operators tbody").empty();
                     if (data.status === "error") {
@@ -157,7 +157,7 @@
                 $('#go').click(function() {
                     var $this = $(this);
                     $.ajax({
-                        url: '[onshow.server_link]/master/session/state',
+                        url: serverLink + '/master/session/state',
                         dataType: 'json',
                         timeout: 3000,
                         success: function(data) {
@@ -168,7 +168,7 @@
                             console.log((jQuery.now() / 1000 - obj.timestamp));
                             if (((jQuery.now() / 1000 - obj.timestamp) < 1800) && (obj.password.length != 0)) {
                                 $.ajax({
-                                    url: '[onshow.server_link]/master/session/set/state/3',
+                                    url: serverLink + '/master/session/set/state/3',
                                     dataType: 'json',
                                     success: function(data) {
                                         window.location.href = "master.php?state=jamming";

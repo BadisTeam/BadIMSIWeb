@@ -351,7 +351,7 @@
             $('#go').click(function() {
                 var  $this = $(this);
                 $.ajax({
-                    url: '[onshow.server_link]/master/session/state',
+                    url: serverLink + '/master/session/state',
                     dataType: 'json',
                     timeout: 3000,
                     success: function(data) {
@@ -362,7 +362,7 @@
                         console.log((jQuery.now()/1000 - obj.timestamp));
                         if(((jQuery.now()/1000 - obj.timestamp) < 1800) && (obj.password.length != 0)) {
                             $.ajax({
-                                url: '[onshow.server_link]/master/session/set/state/2',
+                                url: serverLink + '/master/session/set/state/2',
                                 dataType: 'json',
                                 success: function(data) {
                                     window.location.href="master.php?state=sniffing";

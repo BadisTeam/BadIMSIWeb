@@ -95,7 +95,7 @@
             document.getElementById('modal').style.display = 'none';
             document.getElementById('fade').style.display = 'none';
         }
-        var ebsession = new EventBus("[onshow.server_link]/eventbus");
+        var ebsession = new EventBus(serverLink + '/eventbus');
         if (endsWith(window.location.href, "observer.php")) {
             console.log(window.location.href);
             console.log(endsWith(window.location.href, "observer.php"));
