@@ -21,3 +21,5 @@ To install BadIMSIWeb, just simply clone the git repository.
 ```
 git clone https://github.com/WarenUT/BadIMSIWeb
 ```
+
+Edit the includes/functions.php and the templates/js/functions.js to fit your server address and port
