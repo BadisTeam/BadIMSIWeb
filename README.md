@@ -22,4 +22,8 @@ To install BadIMSIWeb, just simply clone the git repository.
 git clone https://github.com/WarenUT/BadIMSIWeb
 ```
 
+Create the mysql database with the name 'badimsibox'.
+
+Import the dump.sql file into the mysql database.
+
 Edit the includes/functions.php and the templates/js/functions.js to fit your server address and port
