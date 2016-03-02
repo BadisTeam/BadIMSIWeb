@@ -1,10 +1,11 @@
 <?php
     session_start();
-    if (!isset($_SESSION['id']) OR !isset($_SESSION['login']) OR !isset($_SESSION['accessRights'])) {
-        if($_SESSION['accessRights'] != 1) {
+   // if (!isset($_SESSION['id']) OR !isset($_SESSION['login']) OR !isset($_SESSION['accessRights'])) {
+        if($_SESSION['accessRights'] != '1') {
             header('Location: error.php?e=401');
         }
-    }
+       // header('Location: error.php?e=401');
+   // }
 
     // Include the template manager
     include_once('library/TBS/tbs_class.php');

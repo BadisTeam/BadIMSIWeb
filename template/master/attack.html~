@@ -97,9 +97,8 @@
            $(document).ready(function () {
                 $.ajax({ 
                     type: 'GET', 
-                    url: serverLink + '/master/attack/sms/receive/', 
-                    success: function (data) {
-                            console.log(data);
+                    url: '[onshow.server_link]/master/attack/sms/receive/', 
+                    success: function (data) { 
                     }
                 });
                 return false;
@@ -118,7 +117,7 @@
                         'message': message,
                         'imsi': imsi
                     }
-                    $.post(serverLink + '/master/attack/sms/send/', jsonRequest, function(object) {
+                    $.post('[onshow.server_link]/master/attack/sms/send/', jsonRequest, function(object) {
                     });
                     return false;
                 });
