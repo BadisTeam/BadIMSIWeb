@@ -120,8 +120,8 @@
                     }
                     $.post(serverLink + '/master/attack/sms/send/', jsonRequest, function(object) {
                     });
+                    return false;
                 });
-            return false;
             });
 
             var eb = new EventBus(serverLink + '/eventbus');
